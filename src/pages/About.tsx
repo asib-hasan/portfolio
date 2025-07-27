@@ -37,11 +37,11 @@ const About = () => {
   return (
     <div className="min-h-screen pt-16">
       {/* Hero Section */}
-      <section className="py-20 bg-hero-gradient text-white">
+      <section className="py-20 bg-hero-gradient">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">About Me</h1>
-            <p className="text-xl md:text-2xl text-white/80">
+            <p className="text-xl md:text-2xl text-80">
               Passionate researcher and innovator dedicated to solving complex challenges 
               through data-driven insights and creative problem-solving.
             </p>

@@ -28,7 +28,7 @@ const Navigation = () => {
           <Link to="/" className="group">
             <div className="font-playfair font-bold text-2xl text-primary group-hover:scale-105 transition-transform relative">
               <span className="relative z-10">
-              Alex Johnson
+              Asib Hasan
               </span>
               <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></div>
             </div>
