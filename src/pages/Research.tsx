@@ -47,33 +47,6 @@ const Research = () => {
     }
   ];
 
-  const researchAreas = [
-    {
-      title: "Artificial Intelligence & Machine Learning",
-      description: "Developing advanced algorithms for pattern recognition, predictive modeling, and automated decision-making systems.",
-      projects: 12,
-      papers: 8
-    },
-    {
-      title: "Data Science & Analytics",
-      description: "Creating innovative approaches to extract insights from complex, large-scale datasets across various domains.",
-      projects: 15,
-      papers: 6
-    },
-    {
-      title: "Human-Computer Interaction",
-      description: "Designing intuitive interfaces and studying user behavior to improve technology adoption and usability.",
-      projects: 8,
-      papers: 4
-    },
-    {
-      title: "Sustainable Technology",
-      description: "Researching environmentally conscious technology solutions for sustainable development and climate change mitigation.",
-      projects: 6,
-      papers: 3
-    }
-  ];
-
   const stats = [
     { label: "Publications", value: "25+", icon: Award },
     { label: "Citations", value: "892", icon: ExternalLink },
@@ -84,11 +57,11 @@ const Research = () => {
   return (
     <div className="min-h-screen pt-16">
       {/* Hero Section */}
-      <section className="py-20 bg-hero-gradient text-white">
+      <section className="py-20 bg-hero-gradient">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Research & Publications</h1>
-            <p className="text-xl md:text-2xl text-white/80">
+            <p className="text-xl md:text-2xl text-80">
               Advancing the frontiers of knowledge through rigorous research and 
               collaborative scientific inquiry.
             </p>
@@ -108,37 +81,6 @@ const Research = () => {
                 <div className="text-3xl font-bold text-primary mb-2">{stat.value}</div>
                 <div className="text-muted-foreground">{stat.label}</div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Research Areas */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-4 bg-text-gradient bg-clip-text text-transparent">
-            Research Areas
-          </h2>
-          <p className="text-xl text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
-            My research spans multiple interconnected disciplines, focusing on practical applications 
-            of cutting-edge technologies.
-          </p>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            {researchAreas.map((area, index) => (
-              <Card key={area.title} className="animate-fade-in hover:shadow-medium transition-all duration-300" style={{ animationDelay: `${index * 0.1}s` }}>
-                <CardHeader>
-                  <CardTitle className="text-xl">{area.title}</CardTitle>
-                  <CardDescription>{area.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex gap-4 text-sm text-muted-foreground">
-                    <span>{area.projects} Projects</span>
-                    <span>•</span>
-                    <span>{area.papers} Publications</span>
-                  </div>
-                </CardContent>
-              </Card>
             ))}
           </div>
         </div>

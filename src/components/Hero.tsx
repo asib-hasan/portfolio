@@ -45,7 +45,7 @@ const Hero = () => {
 
         {/* Description */}
         <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-          I craft real-world solutions using Laravel, Vue.js, C++, and OpenAI — building scalable systems and tools that make an impact.
+          I craft real-world solutions using Laravel, React.js and OpenAI — building scalable systems and tools that make an impact.
         </p>
 
         {/* CTA Buttons */}

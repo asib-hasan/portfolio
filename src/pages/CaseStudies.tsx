@@ -3,76 +3,38 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Clock, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 
 const CaseStudies = () => {
-  const caseStudies = [
-    {
-      id: "ai-healthcare-platform",
-      title: "AI-Powered Healthcare Platform",
-      description: "Developing an intelligent diagnostic system that reduces misdiagnosis rates by 35% and improves patient outcomes across 12 major hospitals.",
-      category: "Healthcare AI",
-      duration: "8 months",
-      client: "HealthTech Solutions",
-      image: "/api/placeholder/600/400",
-      tags: ["Machine Learning", "Healthcare", "Data Analysis"],
-      featured: true
-    },
-    {
-      id: "smart-city-infrastructure",
-      title: "Smart City Infrastructure Optimization",
-      description: "Implemented IoT-based traffic management system that reduced congestion by 28% and improved emergency response times by 40%.",
-      category: "Smart Cities",
-      duration: "12 months",
-      client: "Metro City Council",
-      image: "/api/placeholder/600/400",
-      tags: ["IoT", "Urban Planning", "Data Analytics"],
-      featured: true
-    },
-    {
-      id: "financial-risk-assessment",
-      title: "Financial Risk Assessment Model",
-      description: "Created predictive models for loan default assessment, improving accuracy by 22% while reducing processing time from days to minutes.",
-      category: "FinTech",
-      duration: "6 months",
-      client: "Global Bank Corp",
-      image: "/api/placeholder/600/400",
-      tags: ["Machine Learning", "Finance", "Risk Analysis"],
-      featured: false
-    },
-    {
-      id: "sustainable-supply-chain",
-      title: "Sustainable Supply Chain Analytics",
-      description: "Developed comprehensive analytics platform that helped reduce carbon footprint by 30% while maintaining cost efficiency.",
-      category: "Sustainability",
-      duration: "10 months",
-      client: "EcoLogistics Inc",
-      image: "/api/placeholder/600/400",
-      tags: ["Sustainability", "Analytics", "Optimization"],
-      featured: false
-    },
-    {
-      id: "education-personalization",
-      title: "Personalized Learning Platform",
-      description: "Built adaptive learning system that improved student engagement by 45% and learning outcomes by 32% across 50+ schools.",
-      category: "EdTech",
-      duration: "9 months",
-      client: "EduInnovate",
-      image: "/api/placeholder/600/400",
-      tags: ["AI", "Education", "Personalization"],
-      featured: false
-    },
-    {
-      id: "cybersecurity-threat-detection",
-      title: "Advanced Threat Detection System",
-      description: "Implemented ML-based cybersecurity solution that improved threat detection accuracy by 89% and reduced false positives by 65%.",
-      category: "Cybersecurity",
-      duration: "7 months",
-      client: "SecureNet Technologies",
-      image: "/api/placeholder/600/400",
-      tags: ["Cybersecurity", "Machine Learning", "Real-time Analysis"],
-      featured: false
-    }
-  ];
+  const [caseStudies, setCaseStudies] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+  axios.get("https://resume.asib-hasan.com/api/case-study")
+    .then((res) => {
+      if (res.data?.status === "success") {
+        const transformed = res.data.data.map((item) => ({
+          id: item.id,
+          title: item.title,
+          description: item.description.replace(/<[^>]*>?/gm, ""), // remove HTML tags
+          category: item.category,
+          duration: item.duration,
+          client: "Private", // or item.client if you have it
+          image: item.image || "/api/placeholder/600/400", // fallback
+          tags: item.keywords ? item.keywords.split(",") : [],
+          featured: true // or logic to detect featured
+        }));
+        setCaseStudies(transformed);
+      }
+    })
+    .catch((error) => {
+      console.error("Failed to load case studies:", error);
+    })
+    .finally(() => setLoading(false));
+}, []);
+
 
   const featuredStudies = caseStudies.filter(study => study.featured);
   const allStudies = caseStudies;
@@ -80,11 +42,11 @@ const CaseStudies = () => {
   return (
     <div className="min-h-screen pt-16">
       {/* Hero Section */}
-      <section className="py-20 bg-hero-gradient text-white">
+      <section className="py-20 bg-hero-gradient">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Case Studies</h1>
-            <p className="text-xl md:text-2xl text-white/80">
+            <p className="text-xl md:text-2xl text-80">
               Real-world solutions that drive measurable impact across industries, 
               showcasing innovative approaches to complex challenges.
             </p>
@@ -95,13 +57,6 @@ const CaseStudies = () => {
       {/* Featured Case Studies */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-4 bg-text-gradient bg-clip-text text-transparent">
-            Featured Projects
-          </h2>
-          <p className="text-xl text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
-            Highlighted case studies that demonstrate significant impact and innovative solutions.
-          </p>
-          
           <div className="grid lg:grid-cols-2 gap-12">
             {featuredStudies.map((study, index) => (
               <Card key={study.id} className="group overflow-hidden hover:shadow-strong transition-all duration-500 animate-fade-in border-0 bg-card-gradient" style={{ animationDelay: `${index * 0.2}s` }}>

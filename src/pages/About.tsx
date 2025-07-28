@@ -57,7 +57,7 @@ const About = () => {
             {/* Bio Column */}
             <div className="lg:col-span-2 space-y-8">
               <div className="animate-fade-in">
-                <h2 className="text-3xl font-bold mb-6 bg-text-gradient bg-clip-text text-transparent">My Story</h2>
+                <h2 className="text-3xl font-bold mb-6 bg-text-gradient bg-clip-text">About Me</h2>
                 <div className="prose prose-lg max-w-none text-muted-foreground space-y-4">
                   <p>
                     With over 8 years of experience in research and innovation, I've dedicated my career 
