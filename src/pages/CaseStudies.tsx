@@ -62,7 +62,7 @@ const CaseStudies = () => {
               <Card key={study.id} className="group overflow-hidden hover:shadow-strong transition-all duration-500 animate-fade-in border-0 bg-card-gradient" style={{ animationDelay: `${index * 0.2}s` }}>
                 <div className="relative overflow-hidden">
                   <img 
-                    src={study.image} 
+                   src={`https://resume.asib-hasan.com/${study.image}`}
                     alt={study.title}
                     className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -78,7 +78,7 @@ const CaseStudies = () => {
                   <CardTitle className="text-2xl group-hover:text-primary transition-colors">
                     {study.title}
                   </CardTitle>
-                  <CardDescription className="text-base">
+                  <CardDescription className="text-base line-clamp-3">
                     {study.description}
                   </CardDescription>
                 </CardHeader>
@@ -131,7 +131,7 @@ const CaseStudies = () => {
               <Card key={study.id} className="group hover:shadow-medium transition-all duration-300 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="relative overflow-hidden">
                   <img 
-                    src={study.image} 
+                    src={`https://resume.asib-hasan.com/${study.image}`} 
                     alt={study.title}
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
