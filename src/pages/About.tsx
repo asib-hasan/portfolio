@@ -2,37 +2,76 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Award, Briefcase, GraduationCap, MapPin } from "lucide-react";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { CheckCircle,Sparkles  } from "lucide-react";
 const About = () => {
-  const skills = [
-    { name: "Research & Analysis", level: 95 },
-    { name: "Data Science", level: 90 },
-    { name: "Strategic Planning", level: 88 },
-    { name: "Project Management", level: 92 },
-    { name: "Technical Writing", level: 89 },
-    { name: "Public Speaking", level: 85 }
-  ];
+  const [skills, setSkills] = useState([]);
+  const [educations, setEducations] = useState([]);
 
-  const experience = [
-    {
-      title: "Senior Research Scientist",
-      company: "TechCorp Research Labs",
-      period: "2020 - Present",
-      description: "Leading cutting-edge research in AI and machine learning applications."
-    },
-    {
-      title: "Research Fellow",
-      company: "University Innovation Center",
-      period: "2018 - 2020",
-      description: "Conducted interdisciplinary research and published 15+ peer-reviewed papers."
-    },
-    {
-      title: "Data Analyst",
-      company: "Analytics Solutions Inc.",
-      period: "2016 - 2018",
-      description: "Developed predictive models and business intelligence solutions."
-    }
-  ];
+
+  useEffect(() => {
+    axios.get("http://resume.asib-hasan.com/api/skills")
+      .then(response => {
+        if (response.data.status === "success") {
+          const skillData = response.data.data.map(skill => ({
+            name: skill.title,
+            level: skill.level * 10,
+          }));
+          setSkills(skillData);
+        }
+      })
+      .catch(error => {
+        console.error("Failed to fetch skills:", error);
+      });
+  }, []);
+
+
+  useEffect(() => {
+    axios.get("http://resume.asib-hasan.com/api/educations")
+      .then(response => {
+        if (response.data.status === "success") {
+          setEducations(response.data.data); // no sorting
+        }
+      })
+      .catch(error => {
+        console.error("Failed to fetch education data:", error);
+      });
+  }, []);
+
+  const [experience, setExperience] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://resume.asib-hasan.com/api/experiences")
+      .then(response => {
+        if (response.data.status === "success") {
+          setExperience(response.data.data);
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching experience data:", error);
+      });
+  }, []);
+
+  const formatPeriod = (start, end) => {
+    const format = (dateStr) =>
+      new Date(dateStr).toLocaleString("default", { month: "short", year: "numeric" });
+    return `${format(start)} - ${end ? format(end) : "Present"}`;
+  };
+
+  const [summary, setSummary] = useState("");
+
+  useEffect(() => {
+    axios.get("https://resume.asib-hasan.com/api/personal")
+      .then(response => {
+        if (response.data.status === "success") {
+          setSummary(response.data.data.summary);
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching personal summary:", error);
+      });
+  }, []);
 
   return (
     <div className="min-h-screen pt-16">
@@ -59,23 +98,7 @@ const About = () => {
               <div className="animate-fade-in">
                 <h2 className="text-3xl font-bold mb-6 bg-text-gradient bg-clip-text">About Me</h2>
                 <div className="prose prose-lg max-w-none text-muted-foreground space-y-4">
-                  <p>
-                    With over 8 years of experience in research and innovation, I've dedicated my career 
-                    to pushing the boundaries of what's possible in technology and science. My journey 
-                    began with a fascination for data patterns and has evolved into a comprehensive 
-                    approach to solving complex, real-world problems.
-                  </p>
-                  <p>
-                    I specialize in bridging the gap between theoretical research and practical 
-                    applications, ensuring that innovative ideas translate into meaningful impact. 
-                    My work spans multiple disciplines, from artificial intelligence and machine 
-                    learning to strategic business consulting and creative problem-solving.
-                  </p>
-                  <p>
-                    When I'm not immersed in research, you'll find me exploring new technologies, 
-                    mentoring young researchers, or capturing the world through my camera lens. 
-                    I believe in the power of interdisciplinary collaboration and continuous learning.
-                  </p>
+                  <p>{summary}</p>
                 </div>
               </div>
 
@@ -86,20 +109,22 @@ const About = () => {
                   Professional Experience
                 </h3>
                 <div className="space-y-6">
-                  {experience.map((job, index) => (
-                    <Card key={index} className="border-l-4 border-l-primary">
-                      <CardHeader>
-                        <CardTitle className="text-xl">{job.title}</CardTitle>
-                        <CardDescription className="flex items-center gap-2">
-                          <span className="font-medium text-primary">{job.company}</span>
-                          <Badge variant="secondary">{job.period}</Badge>
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-muted-foreground">{job.description}</p>
-                      </CardContent>
-                    </Card>
-                  ))}
+                    {experience.map((job) => (
+                      <Card key={job.id} className="border-l-4 border-l-primary">
+                        <CardHeader>
+                          <CardTitle className="text-xl">{job.job_title}</CardTitle>
+                          <CardDescription className="flex items-center gap-2">
+                            <span className="font-medium text-primary">{job.company_name}</span>
+                            <Badge variant="secondary">
+                              {formatPeriod(job.start_date, job.end_date)}
+                            </Badge>
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-muted-foreground">{job.responsibilities}</p>
+                        </CardContent>
+                      </Card>
+                    ))}
                 </div>
               </div>
             </div>
@@ -108,32 +133,24 @@ const About = () => {
             <div className="space-y-8">
               
               {/* Quick Facts */}
-              <Card className="animate-slide-in">
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <MapPin className="mr-2 h-5 w-5 text-primary" />
-                    Quick Facts
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div>
-                    <p className="font-medium">Location</p>
-                    <p className="text-muted-foreground">San Francisco, CA</p>
-                  </div>
-                  <div>
-                    <p className="font-medium">Education</p>
-                    <p className="text-muted-foreground">PhD in Computer Science</p>
-                  </div>
-                  <div>
-                    <p className="font-medium">Languages</p>
-                    <p className="text-muted-foreground">English, Spanish, French</p>
-                  </div>
-                  <div>
-                    <p className="font-medium">Interests</p>
-                    <p className="text-muted-foreground">AI Ethics, Photography, Hiking</p>
-                  </div>
-                </CardContent>
-              </Card>
+          <Card className="animate-slide-in">
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Sparkles className="mr-2 h-5 w-5 text-primary" />
+                Interests
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2">
+                {["AI Ethics", "Photography", "Hiking"].map((interest, index) => (
+                  <li key={index} className="flex items-center text-muted-foreground">
+                    <CheckCircle className="mr-2 h-4 w-4 text-primary" />
+                    {interest}
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
 
               {/* Skills */}
               <Card className="animate-slide-in" style={{ animationDelay: '0.2s' }}>
@@ -165,19 +182,17 @@ const About = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div>
-                    <p className="font-medium">PhD Computer Science</p>
-                    <p className="text-sm text-muted-foreground">Stanford University, 2016</p>
-                  </div>
-                  <div>
-                    <p className="font-medium">MS Data Science</p>
-                    <p className="text-sm text-muted-foreground">MIT, 2014</p>
-                  </div>
-                  <div>
-                    <p className="font-medium">BS Computer Engineering</p>
-                    <p className="text-sm text-muted-foreground">UC Berkeley, 2012</p>
-                  </div>
+                  {educations.map((edu) => (
+                    <div key={edu.id}>
+                      <p className="font-medium">{edu.degree}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {edu.institute}, {edu.city} ({edu.start_date.slice(0, 4)} - {edu.end_date.slice(0, 4)})
+                      </p>
+                      <p className="text-sm text-muted-foreground">Result: {edu.result}</p>
+                    </div>
+                  ))}
                 </CardContent>
+
               </Card>
             </div>
           </div>
