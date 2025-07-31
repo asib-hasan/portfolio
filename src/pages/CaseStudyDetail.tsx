@@ -107,20 +107,11 @@ const CaseStudyDetail = () => {
             <div className="mb-8">
               <Badge className="mb-4">{study.category}</Badge>
               <h1 className="text-4xl md:text-5xl font-bold mb-4">{study.title}</h1>
-              <p className="text-xl text-muted-foreground mb-8">{study.subtitle}</p>
               
               <div className="flex flex-wrap gap-6 text-sm text-muted-foreground mb-8">
                 <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
-                  Client: {study.client}
-                </div>
-                <div className="flex items-center gap-2">
                   <Clock className="h-4 w-4" />
                   Duration: {study.duration}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Users className="h-4 w-4" />
-                  Team: {study.team}
                 </div>
               </div>
             </div>
@@ -153,26 +144,6 @@ const CaseStudyDetail = () => {
             <Card className="border-l-4 border-l-destructive">
               <CardContent className="pt-6">
                 <p className="text-lg text-muted-foreground leading-relaxed">{study.challenge}</p>
-              </CardContent>
-            </Card>
-          </section>
-
-          {/* Solution */}
-          <section className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            <h2 className="text-3xl font-bold mb-6">Our Solution</h2>
-            <Card className="border-l-4 border-l-primary">
-              <CardContent className="pt-6">
-                <p className="text-lg text-muted-foreground leading-relaxed mb-6">{study.solution}</p>
-                
-                <h3 className="text-xl font-semibold mb-4">Key Features</h3>
-                <div className="grid md:grid-cols-2 gap-3">
-                  {study.keyFeatures.map((feature, index) => (
-                    <div key={index} className="flex items-center gap-2">
-                      <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
-                      <span>{feature}</span>
-                    </div>
-                  ))}
-                </div>
               </CardContent>
             </Card>
           </section>
@@ -224,36 +195,6 @@ const CaseStudyDetail = () => {
               ))}
             </div>
           </section>
-
-          {/* Technologies */}
-          <section className="animate-fade-in" style={{ animationDelay: '0.5s' }}>
-            <h2 className="text-3xl font-bold mb-6">Technologies Used</h2>
-            <div className="flex flex-wrap gap-3">
-              {study.technologies.map((tech) => (
-                <Badge key={tech} variant="outline" className="text-sm py-2 px-4">
-                  {tech}
-                </Badge>
-              ))}
-            </div>
-          </section>
-
-          {/* Testimonial */}
-          <section className="animate-fade-in" style={{ animationDelay: '0.6s' }}>
-            <Card className="bg-accent/10 border-accent/20">
-              <CardContent className="pt-6">
-                <blockquote className="text-xl italic text-muted-foreground mb-6">
-                  "{study.testimonial.quote}"
-                </blockquote>
-                <cite className="font-semibold text-foreground">
-                  {study.testimonial.author}
-                  <span className="block text-sm text-muted-foreground font-normal">
-                    {study.testimonial.position}
-                  </span>
-                </cite>
-              </CardContent>
-            </Card>
-          </section>
-
         </div>
       </div>
     </div>
