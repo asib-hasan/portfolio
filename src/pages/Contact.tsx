@@ -89,11 +89,11 @@ const Contact = () => {
   return (
     <div className="min-h-screen pt-16">
       {/* Hero Section */}
-      <section className="py-20 bg-hero-gradient text-white">
+      <section className="py-20 bg-hero-gradient">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Get In Touch</h1>
-            <p className="text-xl md:text-2xl text-white/80">
+            <p className="text-xl md:text-2xl text-80">
               Let's discuss your project, collaborate on research, or explore 
               new opportunities together. I'm always excited to connect with fellow innovators.
             </p>
@@ -233,27 +233,12 @@ const Contact = () => {
                   ))}
                 </div>
               </div>
-
-              {/* Availability */}
-              <Card className="animate-slide-in border-l-4 border-l-accent" style={{ animationDelay: '0.5s' }}>
-                <CardContent className="p-6">
-                  <h3 className="font-semibold text-lg mb-2">Current Availability</h3>
-                  <p className="text-muted-foreground mb-4">
-                    I'm currently available for consulting projects and research collaborations. 
-                    My typical response time is within 24-48 hours.
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm font-medium text-green-600">Available for new projects</span>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* FAQ Section
       <section className="py-20 bg-secondary/30">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
@@ -315,7 +300,7 @@ const Contact = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

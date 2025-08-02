@@ -18,7 +18,9 @@ const Navigation = () => {
     { name: "Contact", path: "/contact" },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+ const isActive = (path: string) => location.pathname === path || location.pathname.startsWith(path + "/");
+
+
 
   return (
     <nav className="fixed top-0 w-full bg-background/90 backdrop-blur-xl border-b border-border/50 z-50 transition-all duration-300">

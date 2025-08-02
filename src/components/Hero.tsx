@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Download, Code, Cpu, GitBranch } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/software-engineer-hero.jpg";
 
 const Hero = () => {
   return (
@@ -83,33 +82,11 @@ const Hero = () => {
                 
                 {/* Main image container */}
                 <div className="relative rounded-2xl overflow-hidden shadow-strong bg-gradient-to-br from-card to-card/50 p-1">
-                  {/* <img 
-                    src={heroImage} 
+                  <img 
+                    src="/public/myphoto.jpg" 
                     alt="Software Engineer at work"
                     className="w-full h-[500px] lg:h-[600px] object-cover rounded-xl"
-                  /> */}
-
-                  <img 
-                    src="https://source.unsplash.com/800x600/?person,portrait" 
-                    alt="Random Person"
-                    className="w-full h-[500px] lg:h-[600px] object-cover rounded-xl"
                   />
-
-                  
-                  {/* Floating code elements */}
-                  <div className="absolute top-4 right-4 bg-background/90 backdrop-blur-sm rounded-lg p-3 shadow-medium animate-float">
-                    <div className="flex items-center gap-2 text-sm">
-                      <GitBranch className="w-4 h-4 text-accent" />
-                      <span className="text-foreground font-medium">main</span>
-                    </div>
-                  </div>
-                  
-                  <div className="absolute bottom-4 left-4 bg-background/90 backdrop-blur-sm rounded-lg p-3 shadow-medium animate-float" style={{ animationDelay: '1s' }}>
-                    <div className="flex items-center gap-2 text-sm">
-                      <Cpu className="w-4 h-4 text-primary" />
-                      <span className="text-foreground font-medium">95% uptime</span>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
