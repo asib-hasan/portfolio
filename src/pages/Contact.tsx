@@ -38,52 +38,39 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email",
-      value: "alex.johnson@example.com",
+      value: "asib.uucse@gmail.com",
       description: "Feel free to reach out for any inquiries",
-      link: "mailto:alex.johnson@example.com"
+      link: "mailto:asib.uucse@gmail.com"
     },
-    {
-      icon: Phone,
-      title: "Phone",
-      value: "+1 (555) 123-4567",
-      description: "Available weekdays 9 AM - 6 PM PST",
-      link: "tel:+15551234567"
-    },
+    // {
+    //   icon: Phone,
+    //   title: "Phone",
+    //   value: "01XXXXXXXX",
+    //   description: "Available weekdays 9 AM - 6 PM PST",
+    //   link: "tel:+15551234567"
+    // },
     {
       icon: MapPin,
       title: "Location",
-      value: "San Francisco, CA",
-      description: "Available for in-person meetings",
+      value: "Mirpur, Dhaka, Bangladesh",
+      // description: "Available for in-person meetings",
       link: "#"
     },
-    {
-      icon: Calendar,
-      title: "Schedule",
-      value: "Book a Meeting",
-      description: "Let's find a time that works for both of us",
-      link: "#"
-    }
   ];
 
   const socialLinks = [
     {
       icon: Linkedin,
       name: "LinkedIn",
-      url: "https://linkedin.com/in/alexjohnson",
+      url: "https://www.linkedin.com/in/asib-hasan/",
       color: "text-blue-600"
     },
     {
       icon: Github,
       name: "GitHub",
-      url: "https://github.com/alexjohnson",
+      url: "https://github.com/asib-hasan",
       color: "text-gray-700"
     },
-    {
-      icon: Twitter,
-      name: "Twitter",
-      url: "https://twitter.com/alexjohnson",
-      color: "text-blue-400"
-    }
   ];
 
   return (
@@ -94,7 +81,7 @@ const Contact = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Get In Touch</h1>
             <p className="text-xl md:text-2xl text-80">
-              Let's discuss your project, collaborate on research, or explore 
+              Let's discuss your project,or explore 
               new opportunities together. I'm always excited to connect with fellow innovators.
             </p>
           </div>
@@ -187,13 +174,9 @@ const Contact = () => {
             {/* Contact Info */}
             <div className="space-y-8">
               <div className="animate-slide-in">
-                <h2 className="text-3xl font-bold mb-6 bg-text-gradient bg-clip-text text-transparent">
+                <h2 className="text-3xl font-bold mb-6 bg-text-gradient bg-clip-text">
                   Let's Connect
                 </h2>
-                <p className="text-lg text-muted-foreground mb-8">
-                  Whether you're interested in collaboration, have questions about my research, 
-                  or want to discuss potential opportunities, I'm always open to meaningful conversations.
-                </p>
               </div>
 
               {/* Contact Cards */}

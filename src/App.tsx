@@ -14,7 +14,7 @@ import BlogPost from "./pages/BlogPost";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-
+import ScrollToTop from "./components/ScrollToTop";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -23,6 +23,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+       <ScrollToTop />
         <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />

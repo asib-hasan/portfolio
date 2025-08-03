@@ -6,7 +6,7 @@ import { ArrowUpRight, Github, Linkedin, Mail, Twitter } from "lucide-react";
 const Footer = () => {
   const quickLinks = [
     { name: "About", path: "/about" },
-    { name: "Research", path: "/research" },
+    // { name: "Research", path: "/research" },
     { name: "Case Studies", path: "/case-studies" },
     { name: "Blog", path: "/blog" },
   ];
@@ -14,15 +14,14 @@ const Footer = () => {
   const resources = [
     { name: "Gallery", path: "/gallery" },
     { name: "Contact", path: "/contact" },
-    { name: "CV Download", path: "#" },
-    { name: "Newsletter", path: "#" },
+    // { name: "CV Download", path: "#" },
   ];
 
   const socialLinks = [
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Github, href: "#", label: "GitHub" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Mail, href: "#", label: "Email" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/asib-hasan/", label: "LinkedIn" },
+    { icon: Github, href: "https://www.github.com/asib-hasan/", label: "GitHub" },
+    // { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Mail, href: "asib.uucse@gmail.com", label: "Email" },
   ];
 
   return (
@@ -35,12 +34,11 @@ const Footer = () => {
             <div className="lg:col-span-2">
               <Link to="/" className="inline-block mb-6">
                 <h3 className="text-2xl font-playfair font-bold bg-gradient-to-r from-accent-light to-white bg-clip-text text-transparent">
-                  Alex Johnson
+                  Asib Hasan
                 </h3>
               </Link>
               <p className="text-primary-foreground/80 prose-lg mb-8 max-w-md text-balance">
-                Passionate researcher and innovator creating meaningful impact through 
-                cutting-edge technology and strategic thinking.
+                 Analytical problem solver and developer turning real-world challenges into robust digital solutions.
               </p>
               
               {/* Social Links */}
@@ -113,24 +111,7 @@ const Footer = () => {
           {/* Bottom Footer */}
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="text-sm text-primary-foreground/60">
-              © {new Date().getFullYear()} Alex Johnson. All rights reserved.
-            </div>
-            
-            <div className="flex items-center gap-6 text-sm">
-              <Button
-                variant="ghost"
-                className="p-0 h-auto text-primary-foreground/60 hover:text-accent-light hover:bg-transparent"
-                asChild
-              >
-                <Link to="#">Privacy Policy</Link>
-              </Button>
-              <Button
-                variant="ghost"
-                className="p-0 h-auto text-primary-foreground/60 hover:text-accent-light hover:bg-transparent"
-                asChild
-              >
-                <Link to="#">Terms of Service</Link>
-              </Button>
+              © {new Date().getFullYear()} Asib Hasan. All rights reserved.
             </div>
           </div>
         </div>

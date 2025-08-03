@@ -142,7 +142,7 @@ const About = () => {
             </CardHeader>
             <CardContent>
               <ul className="space-y-2">
-                {["AI Ethics", "Photography", "Hiking"].map((interest, index) => (
+                {["Problem Solving", "Software Engineering", "Artificial Intelligence"].map((interest, index) => (
                   <li key={index} className="flex items-center text-muted-foreground">
                     <CheckCircle className="mr-2 h-4 w-4 text-primary" />
                     {interest}

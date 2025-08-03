@@ -6,36 +6,33 @@ import { ArrowRight, Code, Database, Cpu, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  const highlights = [
-    {
-      icon: Code,
-      title: "Full-Stack Development",
-      description: "Building scalable web applications with modern frameworks and best practices.",
-      link: "/case-studies",
-      color: "text-primary"
-    },
-    {
-      icon: Database,
-      title: "System Architecture",
-      description: "Designing robust, efficient systems that handle complex data and high traffic.",
-      link: "/research",
-      color: "text-accent"
-    },
-    {
-      icon: Cpu,
-      title: "Performance Optimization",
-      description: "Optimizing applications for speed, scalability, and exceptional user experience.",
-      link: "/gallery",
-      color: "text-primary-muted"
-    },
-    {
-      icon: Zap,
-      title: "Tech Insights",
-      description: "Sharing knowledge about emerging technologies and development best practices.",
-      link: "/blog",
-      color: "text-accent"
-    }
-  ];
+ const highlights = [
+  {
+    icon: Code,
+    title: "Full-Stack Engineering",
+    description: "Crafting robust Laravel & React.js applications with clean architecture and reusable components.",
+    color: "text-primary"
+  },
+  {
+    icon: Database,
+    title: "Scalable Backend Systems",
+    description: "Designing efficient APIs and database schemas.",
+    color: "text-accent"
+  },
+  {
+    icon: Cpu,
+    title: "Performance-Driven Solutions",
+    description: "Optimizing complex systems for high performance using caching, indexing, and smart queries.",
+    color: "text-primary-muted"
+  },
+  {
+    icon: Zap,
+    title: "Tech Leadership & Insights",
+    description: "Sharing insights on software development, data structures, and algorithms",
+    color: "text-accent"
+  }
+];
+
 
   return (
     <div className="min-h-screen">
@@ -49,7 +46,7 @@ const Home = () => {
               <span className="w-2 h-2 bg-accent rounded-full"></span>
               Featured Work
             </div>
-            <h2 className="text-5xl md:text-6xl lg:text-7xl font-playfair font-bold mb-6 bg-text-gradient bg-clip-text text-transparent text-balance">
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-playfair font-bold mb-6 bg-text-gradient bg-clip-text text-balance">
               Technical Expertise
             </h2>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed text-balance">
@@ -78,18 +75,13 @@ const Home = () => {
                   <CardDescription className="mb-6 leading-relaxed text-balance">
                     {item.description}
                   </CardDescription>
-                  <Button asChild variant="ghost" className="group/btn text-accent hover:text-accent-foreground hover:bg-accent">
-                    <Link to={item.link}>
-                      Learn More
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </Link>
-                  </Button>
                 </CardContent>
               </Card>
             ))}
           </div>
         </div>
       </section>
+
 
       {/* Call to Action */}
       <section className="section-padding bg-primary text-primary-foreground relative overflow-hidden">

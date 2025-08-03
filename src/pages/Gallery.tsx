@@ -116,14 +116,16 @@ const Gallery = () => {
 
   return (
     <div className="min-h-screen pt-16 pb-20 container mx-auto px-4">
-      <div className="text-center mb-12">
-        <h1 className="text-5xl font-bold mb-2 mt-3">Photo Gallery</h1>
-        <p className="text-muted-foreground text-lg">
-          {activeFolder
-            ? `Photos in "${activeFolder.name}"`
-            : "Browse folders below"}
-        </p>
-      </div>
+   <section className="py-20 bg-hero-gradient">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">Photo Gallery</h1>
+            <p className="text-xl md:text-2xl text-80">
+               Explore a visual journey through my work, moments, and creative highlights.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {loading ? (
           <div className="flex justify-center items-center">

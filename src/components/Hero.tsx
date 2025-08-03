@@ -14,7 +14,6 @@ const Hero = () => {
       
       {/* Modern accent elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 right-20 w-2 h-32 bg-accent rounded-full animate-float" style={{ animationDelay: '0s' }}></div>
         <div className="absolute bottom-20 left-20 w-32 h-2 bg-accent rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
         <div className="absolute top-1/2 right-32 w-1 h-24 bg-primary/20 rounded-full animate-float" style={{ animationDelay: '2s' }}></div>
       </div>
@@ -25,7 +24,7 @@ const Hero = () => {
             {/* Content Column */}
             <div className="text-center lg:text-left animate-fade-in">
               {/* Professional Badge */}
-              <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-medium mb-6">
+              <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full mt-5 text-sm font-medium mb-6">
                 <Code className="w-4 h-4" />
                 Software Engineer
               </div>
@@ -41,13 +40,12 @@ const Hero = () => {
               
               {/* Description */}
               <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed text-balance">
-                Full-stack developer passionate about creating scalable applications, 
-                clean code architecture, and solving complex technical challenges with modern technologies.
+                Analytical problem solver and developer turning real-world challenges into robust digital solutions.
               </p>
               
               {/* Tech Stack Preview */}
               <div className="flex flex-wrap gap-3 justify-center lg:justify-start mb-8">
-                {['React', 'TypeScript', 'Node.js', 'Python', 'AWS'].map((tech) => (
+                {['Php', 'Laravel', 'React.js'].map((tech) => (
                   <span key={tech} className="px-3 py-1 bg-secondary text-secondary-foreground rounded-full text-sm font-medium">
                     {tech}
                   </span>
@@ -58,19 +56,19 @@ const Hero = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <Button asChild size="xl" variant="premium" className="group">
                   <Link to="/about">
-                    View My Projects
+                    About Me
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
                 
-                <Button 
+                {/* <Button 
                   variant="outline" 
                   size="xl"
                   className="group"
                 >
                   <Download className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
                   Download Resume
-                </Button>
+                </Button> */}
               </div>
             </div>
             
