@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Eye, ArrowLeft } from "lucide-react";
+import Footer from "@/components/Footer";
 
 const BASE_URL = "https://resume.asib-hasan.com/";
 
@@ -30,7 +31,7 @@ const Gallery = () => {
 
   // Render folders (each with one preview image)
   const renderFolderView = () => (
-    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="mx-auto px-4 py-4 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {folders.map((folder) => {
         const previewPhoto = folder.photos?.[0];
         const previewUrl = previewPhoto
@@ -63,7 +64,7 @@ const Gallery = () => {
 
   const renderPhotoView = () => (
     <>
-      <div className="text-center mb-6">
+      <div className="text-center mb-6 mx-auto">
         <Button
           onClick={() => setActiveFolder(null)}
           className="mb-4"
@@ -76,7 +77,7 @@ const Gallery = () => {
         <h2 className="text-3xl font-bold">{activeFolder.name}</h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto px-4 py-4">
         {activeFolder.photos.map((photo: any) => (
           <Card
             key={photo.id}
@@ -115,20 +116,20 @@ const Gallery = () => {
   );
 
   return (
-    <div className="min-h-screen pt-16 pb-20 container mx-auto px-4">
-   <section className="py-20 bg-hero-gradient">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Photo Gallery</h1>
-            <p className="text-xl md:text-2xl text-80">
-               Explore a visual journey through my work, moments, and creative highlights.
-            </p>
+    <div className="min-h-screen pt-16">
+    <section className="py-20 bg-hero-gradient">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center">
+              <h1 className="text-5xl md:text-6xl font-bold mb-6">Photo Gallery</h1>
+              <p className="text-xl md:text-2xl text-80">
+                Explore a visual journey through my work, moments, and creative highlights.
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
       {loading ? (
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center py-8">
             <div className="h-8 w-8 animate-spin rounded-full border-4 border-t-transparent border-primary" />
           </div>
       ) : activeFolder ? (
@@ -161,6 +162,7 @@ const Gallery = () => {
           </div>
         </div>
       )}
+      <Footer />
     </div>
   );
 };

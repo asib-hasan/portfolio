@@ -4,6 +4,7 @@ import { ArrowLeft, Clock, Target } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import Footer from "@/components/Footer";
 
 type CaseStudy = {
   id: number;
@@ -122,6 +123,7 @@ const CaseStudyDetail = () => {
           </section>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { ArrowRight, Clock, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Footer from "@/components/Footer";
 
 
 const CaseStudies = () => {
@@ -79,7 +80,7 @@ const CaseStudies = () => {
                     {study.title}
                   </CardTitle>
                   <CardDescription className="text-base line-clamp-3">
-                    {study.description}
+                    <div dangerouslySetInnerHTML={{ __html: study.description }} />
                   </CardDescription>
                 </CardHeader>
                 
@@ -147,7 +148,7 @@ const CaseStudies = () => {
                     {study.title}
                   </CardTitle>
                   <CardDescription className="text-sm line-clamp-3">
-                    {study.description}
+                   <div dangerouslySetInnerHTML={{ __html: study.description }} />
                   </CardDescription>
                 </CardHeader>
                 
@@ -169,6 +170,8 @@ const CaseStudies = () => {
           </div>
         </div>
       </section>
+      <Footer />
+
     </div>
   );
 };

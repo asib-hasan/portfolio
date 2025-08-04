@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, Calendar, Clock, User, Share2, BookOpen } from "lucide-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Footer from "@/components/Footer";
 const BlogPost = () => {
   const { id } = useParams();
   const [blogPostData, setBlogPostData] = useState(null);
@@ -148,6 +149,7 @@ const BlogPost = () => {
           </div>
         </div>
       </section> */}
+      <Footer />
     </div>
   );
 };

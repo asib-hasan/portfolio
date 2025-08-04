@@ -6,51 +6,52 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { CheckCircle,Sparkles  } from "lucide-react";
 const About = () => {
-  const [skills, setSkills] = useState([]);
-  const [educations, setEducations] = useState([]);
-
+    const [skills, setSkills] = useState([]);
+    const [educations, setEducations] = useState([]);
+    const [experience, setExperience] = useState([]);
+    const [summary, setSummary] = useState("");
+    const [interests, setInterests] = useState([]);
+    const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
-    axios.get("http://resume.asib-hasan.com/api/skills")
-      .then(response => {
-        if (response.data.status === "success") {
-          const skillData = response.data.data.map(skill => ({
+    const fetchData = async () => {
+      try {
+        const [skillsRes, eduRes, expRes, summaryRes, interestsRes] = await Promise.all([
+          axios.get("https://resume.asib-hasan.com/api/skills"),
+          axios.get("https://resume.asib-hasan.com/api/educations"),
+          axios.get("https://resume.asib-hasan.com/api/experiences"),
+          axios.get("https://resume.asib-hasan.com/api/personal"),
+          axios.get("https://resume.asib-hasan.com/api/interests"),
+        ]);
+        if (skillsRes.data.status === "success") {
+          const skillData = skillsRes.data.data.map(skill => ({
             name: skill.title,
             level: skill.level * 10,
           }));
           setSkills(skillData);
         }
-      })
-      .catch(error => {
-        console.error("Failed to fetch skills:", error);
-      });
-  }, []);
-
-
-  useEffect(() => {
-    axios.get("http://resume.asib-hasan.com/api/educations")
-      .then(response => {
-        if (response.data.status === "success") {
-          setEducations(response.data.data); // no sorting
+        if (eduRes.data.status === "success") {
+          setEducations(eduRes.data.data);
         }
-      })
-      .catch(error => {
-        console.error("Failed to fetch education data:", error);
-      });
-  }, []);
-
-  const [experience, setExperience] = useState([]);
-
-  useEffect(() => {
-    axios.get("http://resume.asib-hasan.com/api/experiences")
-      .then(response => {
-        if (response.data.status === "success") {
-          setExperience(response.data.data);
+        if (expRes.data.status === "success") {
+          setExperience(expRes.data.data);
         }
-      })
-      .catch(error => {
-        console.error("Error fetching experience data:", error);
-      });
+        if (summaryRes.data.status === "success") {
+          setSummary(summaryRes.data.data.summary);
+        }
+        if (interestsRes.data.status === "success") {
+          const interestData = interestsRes.data.data.map(data => ({
+            name: data.area,
+          }));
+          setInterests(interestData);
+        }
+      } catch (error) {
+        setLoading(false);
+        console.error("Failed to fetch data:", error);
+      }
+      setLoading(false);
+    };
+    fetchData();
   }, []);
 
   const formatPeriod = (start, end) => {
@@ -59,20 +60,15 @@ const About = () => {
     return `${format(start)} - ${end ? format(end) : "Present"}`;
   };
 
-  const [summary, setSummary] = useState("");
-
-  useEffect(() => {
-    axios.get("https://resume.asib-hasan.com/api/personal")
-      .then(response => {
-        if (response.data.status === "success") {
-          setSummary(response.data.data.summary);
-        }
-      })
-      .catch(error => {
-        console.error("Error fetching personal summary:", error);
-      });
-  }, []);
-
+  // 👇 Render loading indicator
+  if (loading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+      <div className="h-8 w-8 animate-spin rounded-full border-4 border-t-transparent border-primary" />
+    </div>
+    );
+  }
+  
   return (
     <div className="min-h-screen pt-16">
       {/* Hero Section */}
@@ -81,8 +77,7 @@ const About = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">About Me</h1>
             <p className="text-xl md:text-2xl text-80">
-              Passionate researcher and innovator dedicated to solving complex challenges 
-              through data-driven insights and creative problem-solving.
+              Passioniate problem solver and software engineer with a knack for turning complex challenges into elegant solutions.
             </p>
           </div>
         </div>
@@ -96,7 +91,7 @@ const About = () => {
             {/* Bio Column */}
             <div className="lg:col-span-2 space-y-8">
               <div className="animate-fade-in">
-                <h2 className="text-3xl font-bold mb-6 bg-text-gradient bg-clip-text">About Me</h2>
+                <h2 className="text-3xl font-bold mb-6 bg-text-gradient bg-clip-text">Summary</h2>
                 <div className="prose prose-lg max-w-none text-muted-foreground space-y-4">
                   <p>{summary}</p>
                 </div>
@@ -142,10 +137,10 @@ const About = () => {
             </CardHeader>
             <CardContent>
               <ul className="space-y-2">
-                {["Problem Solving", "Software Engineering", "Artificial Intelligence"].map((interest, index) => (
+                {interests.map((interest, index) => (
                   <li key={index} className="flex items-center text-muted-foreground">
                     <CheckCircle className="mr-2 h-4 w-4 text-primary" />
-                    {interest}
+                    {interest.name}
                   </li>
                 ))}
               </ul>

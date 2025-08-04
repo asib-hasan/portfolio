@@ -5,6 +5,7 @@ import { ArrowRight, Calendar, Clock, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Footer from "@/components/Footer";
 const Blog = () => {
   const [blogPosts, setBlogPosts] = useState([]);
 
@@ -67,9 +68,10 @@ const Blog = () => {
                   <CardTitle className="text-2xl group-hover:text-primary transition-colors line-clamp-2">
                     {post.title}
                   </CardTitle>
-                  <CardDescription className="text-base line-clamp-3">
-                    {post.description}
-                  </CardDescription>
+                  <div
+                    className="text-base line-clamp-3"
+                    dangerouslySetInnerHTML={{ __html: post.description }}
+                  />
                 </CardHeader>
                 
                 <CardContent>
@@ -137,8 +139,7 @@ const Blog = () => {
                   <CardTitle className="text-lg group-hover:text-primary transition-colors line-clamp-2">
                     {post.title}
                   </CardTitle>
-                  <CardDescription className="text-sm line-clamp-3">
-                    {post.description}
+                  <CardDescription className="text-sm line-clamp-3" dangerouslySetInnerHTML={{ __html: post.description }}>
                   </CardDescription>
                 </CardHeader>
                 
@@ -160,6 +161,7 @@ const Blog = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

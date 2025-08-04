@@ -6,32 +6,33 @@ import { ArrowRight, Code, Database, Cpu, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Home = () => {
- const highlights = [
+const highlights = [
   {
     icon: Code,
     title: "Full-Stack Engineering",
-    description: "Crafting robust Laravel & React.js applications with clean architecture and reusable components.",
-    color: "text-primary"
+    description: "Building robust Laravel, Vue.js, and React.js applications with clean architecture and reusable components.",
+    color: "text-primary",
   },
   {
     icon: Database,
     title: "Scalable Backend Systems",
-    description: "Designing efficient APIs and database schemas.",
-    color: "text-accent"
+    description: "Designing maintainable APIs, relational schemas, and microservice-friendly structures with PHP and Laravel.",
+    color: "text-accent",
   },
   {
     icon: Cpu,
-    title: "Performance-Driven Solutions",
-    description: "Optimizing complex systems for high performance using caching, indexing, and smart queries.",
-    color: "text-primary-muted"
+    title: "Performance Optimization",
+    description: "Speeding up large systems using Eloquent tuning, smart indexing, Redis caching, and query profiling.",
+    color: "text-primary-muted",
   },
   {
     icon: Zap,
-    title: "Tech Leadership & Insights",
-    description: "Sharing insights on software development, data structures, and algorithms",
-    color: "text-accent"
-  }
+    title: "Competitive Programming & Algorithms",
+    description: "Sharpening logic through 1200+ problems and ICPC regionals; applying DSA insights in real-world projects.",
+    color: "text-accent",
+  },
 ];
+
 
 
   return (
