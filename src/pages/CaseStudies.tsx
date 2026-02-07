@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Clock, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { api, assetUrl } from "@/lib/api";
 import Footer from "@/components/Footer";
 
 
@@ -13,7 +13,7 @@ const CaseStudies = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  axios.get("https://resume.asib-hasan.com/api/case-study")
+  api.get("/case-study")
     .then((res) => {
       if (res.data?.status === "success") {
         const transformed = res.data.data.map((item) => ({
@@ -63,7 +63,7 @@ const CaseStudies = () => {
               <Card key={study.id} className="group overflow-hidden hover:shadow-strong transition-all duration-500 animate-fade-in border-0 bg-card-gradient" style={{ animationDelay: `${index * 0.2}s` }}>
                 <div className="relative overflow-hidden">
                   <img 
-                   src={`https://resume.asib-hasan.com/${study.image}`}
+                   src={assetUrl(study.image)}
                     alt={study.title}
                     className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -132,7 +132,7 @@ const CaseStudies = () => {
               <Card key={study.id} className="group hover:shadow-medium transition-all duration-300 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="relative overflow-hidden">
                   <img 
-                    src={`https://resume.asib-hasan.com/${study.image}`} 
+                    src={assetUrl(study.image)} 
                     alt={study.title}
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />

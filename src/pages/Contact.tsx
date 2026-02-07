@@ -4,16 +4,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, Phone, MapPin, Send, MessageSquare, Calendar, Linkedin, Github, Twitter } from "lucide-react";
+import { Mail, MapPin, Send, MessageSquare, Linkedin, Github } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { api } from "@/lib/api";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     subject: "",
     message: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -24,14 +27,31 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the form data to your backend
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. I'll get back to you soon.",
-    });
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setIsSubmitting(true);
+    try {
+      await api.post("/contact", {
+        name: formData.name.trim(),
+        email: formData.email.trim() || null,
+        phone: formData.phone.trim(),
+        subject: formData.subject.trim() || null,
+        message: formData.message.trim(),
+      });
+      toast({
+        title: "Message Sent",
+        description: "Thanks for reaching out. I'll get back to you soon.",
+      });
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    } catch (error) {
+      toast({
+        title: "Failed to send",
+        description: "Please try again in a moment.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -129,6 +149,18 @@ const Contact = () => {
                           value={formData.email}
                           onChange={handleInputChange}
                           placeholder="your.email@example.com"
+                          className="mt-1"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="phone">Phone</Label>
+                        <Input
+                          id="phone"
+                          name="phone"
+                          type="tel"
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          placeholder="Your phone number"
                           required
                           className="mt-1"
                         />
@@ -162,9 +194,9 @@ const Contact = () => {
                       />
                     </div>
                     
-                    <Button type="submit" size="lg" className="w-full group">
+                    <Button type="submit" size="lg" className="w-full group" disabled={isSubmitting}>
                       <Send className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                      Send Message
+                      {isSubmitting ? "Sending..." : "Send Message"}
                     </Button>
                   </form>
                 </CardContent>

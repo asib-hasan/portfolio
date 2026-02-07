@@ -4,13 +4,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, Clock, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { api, assetUrl } from "@/lib/api";
 import Footer from "@/components/Footer";
 const Blog = () => {
   const [blogPosts, setBlogPosts] = useState([]);
 
   useEffect(() => {
-    axios.get("https://resume.asib-hasan.com/api/blog")
+    api.get("/blog")
       .then((res) => {
         if (Array.isArray(res.data.data)) {
           setBlogPosts(res.data.data);
@@ -52,7 +52,7 @@ const Blog = () => {
               <Card key={post.id} className="group overflow-hidden hover:shadow-strong transition-all duration-500 animate-fade-in border-0 bg-card-gradient" style={{ animationDelay: `${index * 0.2}s` }}>
                 <div className="relative overflow-hidden">
                   <img 
-                    src={`https://resume.asib-hasan.com/${post.image}`}
+                    src={assetUrl(post.image)}
                     alt={post.title}
                     className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -124,7 +124,7 @@ const Blog = () => {
               <Card key={post.id} className="group hover:shadow-medium transition-all duration-300 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="relative overflow-hidden">
                   <img 
-                    src={`https://resume.asib-hasan.com/${post.image}`}
+                    src={assetUrl(post.image)}
                     alt={post.title}
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />

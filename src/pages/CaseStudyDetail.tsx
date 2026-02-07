@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Footer from "@/components/Footer";
+import { api, assetUrl } from "@/lib/api";
 
 type CaseStudy = {
   id: number;
@@ -25,10 +26,9 @@ const CaseStudyDetail = () => {
   useEffect(() => {
     const fetchCaseStudy = async () => {
       try {
-        const res = await fetch(`https://resume.asib-hasan.com/api/single-case-study/${id}`);
-        const json = await res.json();
-        if (json.code === 200) {
-          setData(json.data);
+        const res = await api.get(`/single-case-study/${id}`);
+        if (res.data?.code === 200) {
+          setData(res.data.data);
         } else {
           throw new Error("Failed to load case study.");
         }
@@ -95,7 +95,7 @@ const CaseStudyDetail = () => {
             </div>
 
             <img
-              src={`https://resume.asib-hasan.com/${data.image}`}
+              src={assetUrl(data.image)}
               alt={data.title}
               className="w-full h-96 object-cover rounded-lg shadow-md"
             />

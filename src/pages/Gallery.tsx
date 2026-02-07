@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { api, assetUrl } from "@/lib/api";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Eye, ArrowLeft } from "lucide-react";
 import Footer from "@/components/Footer";
-
-const BASE_URL = "https://resume.asib-hasan.com/";
 
 const Gallery = () => {
   const [folders, setFolders] = useState<any[]>([]);
@@ -16,8 +14,8 @@ const Gallery = () => {
 
   // Fetch data from API
   useEffect(() => {
-    axios
-      .get("https://resume.asib-hasan.com/api/photo-with-folder") 
+    api
+      .get("/photo-with-folder") 
       .then((res) => {
         if (res.data?.status === "success") {
           setFolders(res.data.data);
@@ -35,7 +33,7 @@ const Gallery = () => {
       {folders.map((folder) => {
         const previewPhoto = folder.photos?.[0];
         const previewUrl = previewPhoto
-          ? BASE_URL + previewPhoto.photo
+          ? assetUrl(previewPhoto.photo)
           : "https://via.placeholder.com/400x300";
 
         return (
@@ -85,7 +83,7 @@ const Gallery = () => {
           >
             <div className="relative">
               <img
-                src={BASE_URL + photo.photo}
+                src={assetUrl(photo.photo)}
                 alt={photo.title}
                 className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
               />
@@ -149,7 +147,7 @@ const Gallery = () => {
             </button>
 
             <img
-              src={BASE_URL + selectedPhoto.photo}
+              src={assetUrl(selectedPhoto.photo)}
               alt={selectedPhoto.title}
               className="w-full max-h-[500px] object-contain"
             />

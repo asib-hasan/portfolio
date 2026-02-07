@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Award, Briefcase, GraduationCap, MapPin } from "lucide-react";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { api } from "@/lib/api";
 import { CheckCircle,Sparkles  } from "lucide-react";
 const About = () => {
     const [skills, setSkills] = useState([]);
@@ -17,11 +17,11 @@ const About = () => {
     const fetchData = async () => {
       try {
         const [skillsRes, eduRes, expRes, summaryRes, interestsRes] = await Promise.all([
-          axios.get("https://resume.asib-hasan.com/api/skills"),
-          axios.get("https://resume.asib-hasan.com/api/educations"),
-          axios.get("https://resume.asib-hasan.com/api/experiences"),
-          axios.get("https://resume.asib-hasan.com/api/personal"),
-          axios.get("https://resume.asib-hasan.com/api/interests"),
+          api.get("/skills"),
+          api.get("/educations"),
+          api.get("/experiences"),
+          api.get("/personal"),
+          api.get("/interests"),
         ]);
         if (skillsRes.data.status === "success") {
           const skillData = skillsRes.data.data.map(skill => ({

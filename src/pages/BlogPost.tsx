@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, Calendar, Clock, User, Share2, BookOpen } from "lucide-react";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { api, assetUrl } from "@/lib/api";
 import Footer from "@/components/Footer";
 const BlogPost = () => {
   const { id } = useParams();
@@ -12,7 +12,7 @@ const BlogPost = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`https://resume.asib-hasan.com/api/single-blog/${id}`)
+    api.get(`/single-blog/${id}`)
       .then((res) => {
         setBlogPostData(res.data.data);
       })
@@ -100,7 +100,7 @@ const BlogPost = () => {
             </div>
             
             <img 
-              src={`https://resume.asib-hasan.com/${blogPostData.image}`}
+              src={assetUrl(blogPostData.image)}
               alt={blogPostData.title}
               className="w-full h-96 object-cover rounded-lg shadow-strong mb-8"
             />
