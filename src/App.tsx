@@ -15,7 +15,14 @@ import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
+import useVisitorTracker from "./hooks/useVisitorTracker";
+
 const queryClient = new QueryClient();
+
+const VisitorTracker = () => {
+  useVisitorTracker();
+  return null;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -23,7 +30,8 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-       <ScrollToTop />
+        <VisitorTracker />
+        <ScrollToTop />
         <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -41,5 +49,6 @@ const App = () => (
     </TooltipProvider>
   </QueryClientProvider>
 );
+
 
 export default App;

@@ -1,39 +1,55 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, Calendar, Clock, User, Share2, BookOpen } from "lucide-react";
 import { useEffect, useState } from "react";
 import { api, assetUrl } from "@/lib/api";
+import { createSlug } from "@/lib/utils";
 import Footer from "@/components/Footer";
+
 const BlogPost = () => {
-  const { id } = useParams();
+  const { id: slug } = useParams();
+  const location = useLocation();
   const [blogPostData, setBlogPostData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get(`/single-blog/${id}`)
-      .then((res) => {
-        setBlogPostData(res.data.data);
-      })
-      .catch((err) => {
+    const fetchBlogPost = async () => {
+      try {
+        let postId = location.state?.id;
+
+        if (!postId && slug) {
+          const listRes = await api.get("/blog");
+          if (listRes.data?.data) {
+            const found = listRes.data.data.find((item: any) => createSlug(item.title) === slug);
+            if (found) {
+              postId = found.id;
+            }
+          }
+        }
+
+        if (postId) {
+          const res = await api.get(`/single-blog/${postId}`);
+          setBlogPostData(res.data.data);
+        }
+      } catch (err) {
         console.error("Error fetching blog post:", err);
-      })
-      .finally(() => {
+      } finally {
         setLoading(false);
-      });
-  }, [id]);
+      }
+    };
+
+    fetchBlogPost();
+  }, [slug, location.state]);
 
   if (loading) {
     return (
-     <div className="min-h-screen flex justify-center items-center">
-      <div className="h-8 w-8 animate-spin rounded-full border-4 border-t-transparent border-primary" />
-    </div>
+      <div className="min-h-screen flex justify-center items-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-t-transparent border-primary" />
+      </div>
     );
   }
-
-
-
 
   if (!blogPostData) {
     return (
@@ -71,7 +87,7 @@ const BlogPost = () => {
             <div className="mb-8">
               <Badge className="mb-4">{blogPostData.category}</Badge>
               <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">{blogPostData.title}</h1>
-              
+
               <div className="flex flex-wrap gap-6 text-sm text-muted-foreground mb-8">
                 <div className="flex items-center gap-2">
                   <User className="h-4 w-4" />
@@ -79,10 +95,10 @@ const BlogPost = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />
-                  {new Date(blogPostData.date).toLocaleDateString('en-US', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
+                  {new Date(blogPostData.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
                   })}
                 </div>
                 <div className="flex items-center gap-2">
@@ -93,13 +109,13 @@ const BlogPost = () => {
               </div>
 
               <div className="flex flex-wrap gap-2 mb-8">
-                  <Badge variant="outline">
-                    {blogPostData.category}
-                  </Badge>
+                <Badge variant="outline">
+                  {blogPostData.category}
+                </Badge>
               </div>
             </div>
-            
-            <img 
+
+            <img
               src={assetUrl(blogPostData.image)}
               alt={blogPostData.title}
               className="w-full h-96 object-cover rounded-lg shadow-strong mb-8"
@@ -112,7 +128,7 @@ const BlogPost = () => {
       <section className="pb-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <article 
+            <article
               className="prose prose-lg max-w-none animate-fade-in"
               dangerouslySetInnerHTML={{ __html: blogPostData.description }}
             />
@@ -120,35 +136,6 @@ const BlogPost = () => {
         </div>
       </section>
 
-      {/* Related Posts */}
-      {/* <section className="py-20 bg-secondary/30">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold mb-8 flex items-center">
-              <BookOpen className="mr-3 h-8 w-8 text-primary" />
-              Related Articles
-            </h2>
-            
-            <div className="grid md:grid-cols-2 gap-6">
-              {post.relatedPosts.map((relatedPost) => (
-                <Card key={relatedPost.id} className="group hover:shadow-medium transition-all duration-300">
-                  <CardContent className="pt-6">
-                    <h3 className="text-xl font-semibold mb-4 group-hover:text-primary transition-colors">
-                      {relatedPost.title}
-                    </h3>
-                    <Button asChild variant="outline" className="group/btn">
-                      <Link to={`/blog/${relatedPost.id}`}>
-                        Read Article
-                        <ArrowLeft className="ml-2 h-4 w-4 rotate-180 group-hover/btn:translate-x-1 transition-transform" />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section> */}
       <Footer />
     </div>
   );

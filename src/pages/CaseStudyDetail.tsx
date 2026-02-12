@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import { ArrowLeft, Clock, Target } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Footer from "@/components/Footer";
 import { api, assetUrl } from "@/lib/api";
+import { createSlug } from "@/lib/utils";
 
 type CaseStudy = {
   id: number;
@@ -18,7 +19,8 @@ type CaseStudy = {
 };
 
 const CaseStudyDetail = () => {
-  const { id } = useParams();
+  const { id: slug } = useParams(); // "id" param in route is now receiving the slug
+  const location = useLocation();
   const [data, setData] = useState<CaseStudy | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -26,12 +28,32 @@ const CaseStudyDetail = () => {
   useEffect(() => {
     const fetchCaseStudy = async () => {
       try {
-        const res = await api.get(`/single-case-study/${id}`);
-        if (res.data?.code === 200) {
-          setData(res.data.data);
-        } else {
-          throw new Error("Failed to load case study.");
+        let studyId = location.state?.id;
+
+        if (!studyId && slug) {
+          // If accessing directly via slug, we need to find the ID
+          const listRes = await api.get("/case-study");
+          if (listRes.data?.status === "success") {
+            const found = listRes.data.data.find((item: any) => createSlug(item.title) === slug);
+            if (found) {
+              studyId = found.id;
+            } else {
+              throw new Error("Case study not found");
+            }
+          }
         }
+
+        if (studyId) {
+          const res = await api.get(`/ single -case -study / ${studyId} `);
+          if (res.data?.code === 200) {
+            setData(res.data.data);
+          } else {
+            throw new Error("Failed to load case study.");
+          }
+        } else {
+          throw new Error("Case study not found");
+        }
+
       } catch (err: any) {
         setError(err.message || "Something went wrong");
       } finally {
@@ -40,16 +62,16 @@ const CaseStudyDetail = () => {
     };
 
     fetchCaseStudy();
-  }, [id]);
+  }, [slug, location.state]);
 
-    if (loading) {
+  if (loading) {
     return (
-     <div className="min-h-screen flex justify-center items-center">
-      <div className="h-8 w-8 animate-spin rounded-full border-4 border-t-transparent border-primary" />
-    </div>
+      <div className="min-h-screen flex justify-center items-center">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-t-transparent border-primary" />
+      </div>
     );
   }
-  
+
   if (!data || error) {
     return (
       <div className="min-h-screen pt-16 flex items-center justify-center">

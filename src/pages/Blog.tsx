@@ -5,6 +5,7 @@ import { ArrowRight, Calendar, Clock, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { api, assetUrl } from "@/lib/api";
+import { createSlug } from "@/lib/utils";
 import Footer from "@/components/Footer";
 const Blog = () => {
   const [blogPosts, setBlogPosts] = useState([]);
@@ -30,7 +31,7 @@ const Blog = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Blog & Insights</h1>
             <p className="text-xl md:text-2xl text-80">
-              Exploring the intersection of technology, innovation, and human impact 
+              Exploring the intersection of technology, innovation, and human impact
               through thoughtful analysis and industry insights.
             </p>
           </div>
@@ -46,12 +47,12 @@ const Blog = () => {
           <p className="text-xl text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
             In-depth articles on the latest trends and insights in technology and innovation.
           </p>
-          
+
           <div className="grid lg:grid-cols-2 gap-12">
             {featuredPosts.map((post, index) => (
               <Card key={post.id} className="group overflow-hidden hover:shadow-strong transition-all duration-500 animate-fade-in border-0 bg-card-gradient" style={{ animationDelay: `${index * 0.2}s` }}>
                 <div className="relative overflow-hidden">
-                  <img 
+                  <img
                     src={assetUrl(post.image)}
                     alt={post.title}
                     className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
@@ -63,7 +64,7 @@ const Blog = () => {
                     <Badge variant="secondary">{post.category}</Badge>
                   </div>
                 </div>
-                
+
                 <CardHeader>
                   <CardTitle className="text-2xl group-hover:text-primary transition-colors line-clamp-2">
                     {post.title}
@@ -73,7 +74,7 @@ const Blog = () => {
                     dangerouslySetInnerHTML={{ __html: post.description }}
                   />
                 </CardHeader>
-                
+
                 <CardContent>
                   <div className="flex items-center gap-4 mb-4 text-sm text-muted-foreground">
                     <div className="flex items-center gap-1">
@@ -89,15 +90,15 @@ const Blog = () => {
                       {post.readTime}
                     </div>
                   </div>
-                  
+
                   <div className="flex flex-wrap gap-2 mb-6">
-                      <Badge variant="outline" className="text-xs">
-                        {post.category}
-                      </Badge>
+                    <Badge variant="outline" className="text-xs">
+                      {post.category}
+                    </Badge>
                   </div>
-                  
+
                   <Button asChild className="w-full group/btn">
-                    <Link to={`/blog/${post.id}`}>
+                    <Link to={`/blog/${createSlug(post.title)}`} state={{ id: post.id }}>
                       Read Full Article
                       <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
                     </Link>
@@ -118,12 +119,12 @@ const Blog = () => {
           <p className="text-xl text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
             Stay updated with the latest thoughts on technology, research, and innovation.
           </p>
-          
+
           <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
             {blogPosts.map((post, index) => (
               <Card key={post.id} className="group hover:shadow-medium transition-all duration-300 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="relative overflow-hidden">
-                  <img 
+                  <img
                     src={assetUrl(post.image)}
                     alt={post.title}
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
@@ -134,7 +135,7 @@ const Blog = () => {
                     </Badge>
                   </div>
                 </div>
-                
+
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg group-hover:text-primary transition-colors line-clamp-2">
                     {post.title}
@@ -142,15 +143,15 @@ const Blog = () => {
                   <CardDescription className="text-sm line-clamp-3" dangerouslySetInnerHTML={{ __html: post.description }}>
                   </CardDescription>
                 </CardHeader>
-                
+
                 <CardContent className="pt-0">
                   <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
                     <span>{new Date(post.date).toLocaleDateString()}</span>
                     <span>{post.readTime}</span>
                   </div>
-                  
+
                   <Button asChild variant="outline" size="sm" className="w-full group/btn">
-                    <Link to={`/blog/${post.id}`}>
+                    <Link to={`/blog/${createSlug(post.title)}`} state={{ id: post.id }}>
                       Read Article
                       <ArrowRight className="ml-2 h-3 w-3 group-hover/btn:translate-x-1 transition-transform" />
                     </Link>
