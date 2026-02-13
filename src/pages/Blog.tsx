@@ -120,14 +120,14 @@ const Blog = () => {
             Stay updated with the latest thoughts on technology, research, and innovation.
           </p>
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {blogPosts.map((post, index) => (
-              <Card key={post.id} className="group hover:shadow-medium transition-all duration-300 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+              <Card key={post.id} className="group flex flex-col h-full hover:shadow-medium transition-all duration-300 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="relative overflow-hidden">
                   <img
                     src={assetUrl(post.image)}
                     alt={post.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute top-3 right-3">
                     <Badge variant="secondary" className="text-xs">
@@ -136,16 +136,16 @@ const Blog = () => {
                   </div>
                 </div>
 
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg group-hover:text-primary transition-colors line-clamp-2">
+                <CardHeader className="pb-3 flex-none">
+                  <CardTitle className="text-base sm:text-lg group-hover:text-primary transition-colors line-clamp-2">
                     {post.title}
                   </CardTitle>
                   <CardDescription className="text-sm line-clamp-3" dangerouslySetInnerHTML={{ __html: post.description }}>
                   </CardDescription>
                 </CardHeader>
 
-                <CardContent className="pt-0">
-                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
+                <CardContent className="pt-0 mt-auto">
+                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-4 gap-2 flex-wrap">
                     <span>{new Date(post.date).toLocaleDateString()}</span>
                     <span>{post.readTime}</span>
                   </div>

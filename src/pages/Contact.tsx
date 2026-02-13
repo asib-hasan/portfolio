@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, MapPin, Send, MessageSquare, Linkedin, Github } from "lucide-react";
+import { Mail, Phone, MapPin, Send, MessageSquare, Linkedin, Github } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { api } from "@/lib/api";
 
@@ -62,18 +62,17 @@ const Contact = () => {
       description: "Feel free to reach out for any inquiries",
       link: "mailto:asib.uucse@gmail.com"
     },
-    // {
-    //   icon: Phone,
-    //   title: "Phone",
-    //   value: "01XXXXXXXX",
-    //   description: "Available weekdays 9 AM - 6 PM PST",
-    //   link: "tel:+15551234567"
-    // },
+    {
+      icon: Phone,
+      title: "WhatsApp",
+      value: "01628044781",
+      description: "Reach me on WhatsApp anytime",
+      link: "https://wa.me/8801628044781"
+    },
     {
       icon: MapPin,
       title: "Location",
       value: "Mirpur, Dhaka, Bangladesh",
-      // description: "Available for in-person meetings",
       link: "#"
     },
   ];
@@ -101,7 +100,7 @@ const Contact = () => {
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Get In Touch</h1>
             <p className="text-xl md:text-2xl text-80">
-              Let's discuss your project,or explore 
+              Let's discuss your project,or explore
               new opportunities together. I'm always excited to connect with fellow innovators.
             </p>
           </div>
@@ -112,7 +111,7 @@ const Contact = () => {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16">
-            
+
             {/* Contact Form */}
             <div className="animate-fade-in">
               <Card className="border-0 shadow-strong bg-card-gradient">
@@ -166,7 +165,7 @@ const Contact = () => {
                         />
                       </div>
                     </div>
-                    
+
                     <div>
                       <Label htmlFor="subject">Subject</Label>
                       <Input
@@ -179,7 +178,7 @@ const Contact = () => {
                         className="mt-1"
                       />
                     </div>
-                    
+
                     <div>
                       <Label htmlFor="message">Message</Label>
                       <Textarea
@@ -193,7 +192,7 @@ const Contact = () => {
                         className="mt-1"
                       />
                     </div>
-                    
+
                     <Button type="submit" size="lg" className="w-full group" disabled={isSubmitting}>
                       <Send className="mr-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                       {isSubmitting ? "Sending..." : "Send Message"}
