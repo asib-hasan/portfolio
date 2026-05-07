@@ -1,12 +1,13 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, Clock, User } from "lucide-react";
+import { ArrowRight, Calendar, Clock, User, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { api, assetUrl } from "@/lib/api";
 import { createSlug } from "@/lib/utils";
 import Footer from "@/components/Footer";
+
 const Blog = () => {
   const [blogPosts, setBlogPosts] = useState([]);
 
@@ -21,144 +22,74 @@ const Blog = () => {
         console.error("Failed to fetch blog posts:", error);
       });
   }, []);
-  const featuredPosts = blogPosts.filter(post => post.featured);
 
   return (
-    <div className="min-h-screen pt-16">
-      {/* Hero Section */}
-      <section className="py-20 bg-hero-gradient">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">Blog & Insights</h1>
-            <p className="text-xl md:text-2xl text-80">
-              Exploring the intersection of technology, innovation, and human impact
-              through thoughtful analysis and industry insights.
+    <div className="min-h-screen bg-background overflow-hidden">
+      {/* Page Header */}
+      <section className="pt-8 pb-12 relative">
+        <div className="absolute top-20 -right-40 w-80 h-80 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 -left-32 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="container mx-auto px-4 max-w-6xl relative z-10">
+          <div className="border-b border-border/50 pb-8">
+            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-xs font-bold mb-5 uppercase tracking-wider border border-primary/20 animate-fade-in">
+              <BookOpen className="w-3.5 h-3.5" />
+              Blog
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-foreground animate-slide-up stagger-1">
+              Blog
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-2xl animate-slide-up stagger-2">
+              Thoughts, insights, and engineering stories.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Featured Posts */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-4 bg-text-gradient bg-clip-text">
-            Featured Articles
-          </h2>
-          <p className="text-xl text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
-            In-depth articles on the latest trends and insights in technology and innovation.
-          </p>
-
-          <div className="grid lg:grid-cols-2 gap-12">
-            {featuredPosts.map((post, index) => (
-              <Card key={post.id} className="group overflow-hidden hover:shadow-strong transition-all duration-500 animate-fade-in border-0 bg-card-gradient" style={{ animationDelay: `${index * 0.2}s` }}>
-                <div className="relative overflow-hidden">
-                  <img
-                    src={assetUrl(post.image)}
-                    alt={post.title}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <Badge className="bg-primary text-primary-foreground">Featured</Badge>
-                  </div>
-                  <div className="absolute top-4 right-4">
-                    <Badge variant="secondary">{post.category}</Badge>
-                  </div>
-                </div>
-
-                <CardHeader>
-                  <CardTitle className="text-2xl group-hover:text-primary transition-colors line-clamp-2">
-                    {post.title}
-                  </CardTitle>
-                  <div
-                    className="text-base line-clamp-3"
-                    dangerouslySetInnerHTML={{ __html: post.description }}
-                  />
-                </CardHeader>
-
-                <CardContent>
-                  <div className="flex items-center gap-4 mb-4 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-1">
-                      <User className="h-4 w-4" />
-                      {post.author}
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-4 w-4" />
-                      {new Date(post.date).toLocaleDateString()}
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Clock className="h-4 w-4" />
-                      {post.readTime}
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    <Badge variant="outline" className="text-xs">
-                      {post.category}
-                    </Badge>
-                  </div>
-
-                  <Button asChild className="w-full group/btn">
-                    <Link to={`/blog/${createSlug(post.title)}`} state={{ id: post.id }}>
-                      Read Full Article
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* All Posts */}
-      <section className="py-20 bg-secondary/30">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-4 bg-text-gradient bg-clip-text">
-            Recent Articles
-          </h2>
-          <p className="text-xl text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
-            Stay updated with the latest thoughts on technology, research, and innovation.
-          </p>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <section className="pb-24">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="space-y-0 flex flex-col">
             {blogPosts.map((post, index) => (
-              <Card key={post.id} className="group flex flex-col h-full hover:shadow-medium transition-all duration-300 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="relative overflow-hidden">
-                  <img
-                    src={assetUrl(post.image)}
-                    alt={post.title}
-                    className="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-3 right-3">
-                    <Badge variant="secondary" className="text-xs">
-                      {post.category}
-                    </Badge>
-                  </div>
+              <div 
+                key={post.id} 
+                className="group flex flex-col items-start animate-fade-in max-w-3xl py-8 border-b border-border/30 last:border-b-0" 
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-[10px] font-bold text-primary uppercase tracking-wider bg-primary/10 px-2.5 py-1 rounded-full border border-primary/20">
+                    {post.category}
+                  </span>
+                  <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
+                    <Calendar className="h-3.5 w-3.5" />
+                    {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                  </span>
                 </div>
-
-                <CardHeader className="pb-3 flex-none">
-                  <CardTitle className="text-base sm:text-lg group-hover:text-primary transition-colors line-clamp-2">
+                
+                <h2 className="text-2xl md:text-3xl font-bold mb-3 group-hover:text-primary transition-colors duration-300 leading-snug">
+                  <Link to={`/blog/${createSlug(post.title)}`} state={{ id: post.id }} className="hover:underline decoration-primary/30 underline-offset-4">
                     {post.title}
-                  </CardTitle>
-                  <CardDescription className="text-sm line-clamp-3" dangerouslySetInnerHTML={{ __html: post.description }}>
-                  </CardDescription>
-                </CardHeader>
+                  </Link>
+                </h2>
+                
+                <div 
+                  className="text-base text-muted-foreground line-clamp-3 leading-relaxed" 
+                  dangerouslySetInnerHTML={{ __html: post.description }} 
+                />
 
-                <CardContent className="pt-0 mt-auto">
-                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-4 gap-2 flex-wrap">
-                    <span>{new Date(post.date).toLocaleDateString()}</span>
-                    <span>{post.readTime}</span>
-                  </div>
-
-                  <Button asChild variant="outline" size="sm" className="w-full group/btn">
-                    <Link to={`/blog/${createSlug(post.title)}`} state={{ id: post.id }}>
-                      Read Article
-                      <ArrowRight className="ml-2 h-3 w-3 group-hover/btn:translate-x-1 transition-transform" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
+                <Link 
+                  to={`/blog/${createSlug(post.title)}`} 
+                  state={{ id: post.id }} 
+                  className="inline-flex items-center gap-1.5 mt-4 text-sm font-semibold text-primary hover:text-primary/80 transition-colors group/link"
+                >
+                  Read article 
+                  <ArrowRight className="h-3.5 w-3.5 group-hover/link:translate-x-1 transition-transform" />
+                </Link>
+              </div>
             ))}
+
+            {blogPosts.length === 0 && (
+              <p className="text-muted-foreground py-12">No posts found.</p>
+            )}
           </div>
         </div>
       </section>

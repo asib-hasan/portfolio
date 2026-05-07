@@ -53,7 +53,7 @@ const BlogPost = () => {
 
   if (!blogPostData) {
     return (
-      <div className="min-h-screen pt-16 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">Blog Post Not Found</h1>
           <p className="text-muted-foreground mb-8">The requested blog post could not be found.</p>
@@ -69,70 +69,66 @@ const BlogPost = () => {
   }
 
   return (
-    <div className="min-h-screen pt-16">
-      {/* Back Button */}
-      <div className="container mx-auto px-4 py-8">
-        <Button asChild variant="ghost">
-          <Link to="/blog">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Blog
-          </Link>
-        </Button>
-      </div>
-
-      {/* Hero Section */}
-      <section className="pb-12">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="mb-8">
-              <Badge className="mb-4">{blogPostData.category}</Badge>
-              <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">{blogPostData.title}</h1>
-
-              <div className="flex flex-wrap gap-6 text-sm text-muted-foreground mb-8">
-                <div className="flex items-center gap-2">
-                  <User className="h-4 w-4" />
-                  Asib Hasan
-                </div>
-                <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
-                  {new Date(blogPostData.date).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}
-                </div>
-                <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4" />
-                  {/* {blogPostData.readTime} */}
-                  5 Minutes Read
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-2 mb-8">
-                <Badge variant="outline">
+    <div className="min-h-screen bg-background">
+      <section className="pt-12 pb-20">
+        <div className="container mx-auto px-4 max-w-4xl">
+          {/* Back Button */}
+          <div className="mb-8 border-b border-border/50 pb-6 flex items-center justify-between">
+            <Button asChild variant="ghost" className="hover:bg-muted/50 -ml-3 text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/blog">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Blog
+              </Link>
+            </Button>
+            
+            <div className="flex gap-2">
+               <Badge variant="outline" className="text-xs uppercase tracking-wider bg-muted/30 border-border/60 text-muted-foreground">
                   {blogPostData.category}
-                </Badge>
+               </Badge>
+            </div>
+          </div>
+
+          {/* Hero Section */}
+          <div className="mb-10">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight tracking-tight text-foreground">
+              {blogPostData.title}
+            </h1>
+
+            <div className="flex flex-wrap gap-6 text-sm font-medium text-muted-foreground mb-8">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                  <User className="h-4 w-4" />
+                </div>
+                <span className="text-foreground">Asib Hasan</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4" />
+                {new Date(blogPostData.date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })}
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="h-4 w-4" />
+                5 Minutes Read
               </div>
             </div>
 
-            <img
-              src={assetUrl(blogPostData.image)}
-              alt={blogPostData.title}
-              className="w-full h-96 object-cover rounded-lg shadow-strong mb-8"
-            />
+            {blogPostData.image && (
+              <img
+                src={assetUrl(blogPostData.image)}
+                alt={blogPostData.title}
+                className="w-full h-auto max-h-[500px] object-cover rounded-xl border border-border/60 shadow-sm mb-12"
+              />
+            )}
           </div>
-        </div>
-      </section>
 
-      {/* Article Content */}
-      <section className="pb-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <article
-              className="prose prose-lg max-w-none animate-fade-in"
-              dangerouslySetInnerHTML={{ __html: blogPostData.description }}
-            />
-          </div>
+          {/* Article Content */}
+          <article
+            className="prose prose-lg max-w-none text-muted-foreground prose-headings:text-foreground prose-a:text-primary hover:prose-a:text-primary/80 prose-strong:text-foreground prose-img:rounded-xl prose-img:border prose-img:border-border/60 prose-img:shadow-sm"
+            dangerouslySetInnerHTML={{ __html: blogPostData.description }}
+          />
         </div>
       </section>
 

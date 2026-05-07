@@ -4,13 +4,13 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
+import CursorEffect from "./components/CursorEffect";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Research from "./pages/Research";
-import CaseStudies from "./pages/CaseStudies";
-import CaseStudyDetail from "./pages/CaseStudyDetail";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import Projects from "./pages/Projects";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
@@ -32,13 +32,13 @@ const App = () => (
       <BrowserRouter>
         <VisitorTracker />
         <ScrollToTop />
+        <CursorEffect />
         <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/research" element={<Research />} />
-          <Route path="/case-studies" element={<CaseStudies />} />
-          <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
+          <Route path="/projects" element={<Projects />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/gallery" element={<Gallery />} />

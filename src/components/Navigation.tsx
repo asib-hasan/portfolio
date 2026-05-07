@@ -1,112 +1,109 @@
-import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Home, User, FolderGit2, BookOpen, Image, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const Navigation = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
   const navItems = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    // { name: "Research", path: "/research" },
-    { name: "Case Studies", path: "/case-studies" },
-    { name: "Blog", path: "/blog" },
-    { name: "Gallery", path: "/gallery" },
-    { name: "Contact", path: "/contact" },
+    { name: "Home", path: "/", icon: Home },
+    { name: "About", path: "/about", icon: User },
+    { name: "Projects", path: "/projects", icon: FolderGit2 },
+    { name: "Blog", path: "/blog", icon: BookOpen },
+    { name: "Gallery", path: "/gallery", icon: Image },
+    { name: "Contact", path: "/contact", icon: Mail },
   ];
 
- const isActive = (path: string) => location.pathname === path || location.pathname.startsWith(path + "/");
-
-
+  const isActive = (path: string) => {
+    if (path === "/") {
+      return location.pathname === "/";
+    }
+    return location.pathname.startsWith(path);
+  };
 
   return (
-    <nav className="fixed top-0 w-full bg-background/90 backdrop-blur-xl border-b border-border/50 z-50 transition-all duration-300">
-      <div className="container mx-auto container-padding">
-        <div className="flex items-center justify-between h-18">
+    <>
+      {/* Top Header - scrolls with page */}
+      <div className="w-full pt-4 md:pt-5 lg:pt-6 px-4 lg:px-6">
+        <header className="mx-auto max-w-7xl rounded-2xl border border-border/50 backdrop-blur-xl py-3 lg:py-4 bg-card/80 shadow-sm flex items-center justify-between px-5 lg:px-6">
+
           {/* Logo */}
-          <Link to="/" className="group">
-            <div className="font-playfair font-bold text-2xl text-primary group-hover:scale-105 transition-transform relative">
-              <span className="relative z-10">
-              Asib Hasan
+          <Link to="/" className="flex items-center gap-2.5 group shrink-0 transition-all duration-300">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:shadow-md group-hover:scale-105 transition-all duration-300">
+              A
+            </div>
+            <div className="flex flex-col -space-y-0.5">
+              <span className="text-sm font-bold tracking-tight text-foreground leading-tight">
+                Asib Hasan
               </span>
-              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></div>
+              <span className="text-[9px] font-semibold text-muted-foreground/70 uppercase tracking-widest">
+                Software Engineer
+              </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-12">
+          <nav className="hidden lg:flex items-center gap-1 bg-muted/50 px-2 py-1.5 rounded-2xl border border-border/50">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 to={item.path}
                 className={cn(
-                  "relative text-sm font-medium transition-all duration-300 hover:text-primary group",
-                  isActive(item.path) 
-                    ? "text-primary" 
-                    : "text-muted-foreground"
+                  "relative px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-300 group/nav whitespace-nowrap",
+                  isActive(item.path)
+                    ? "text-primary bg-background shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
                 )}
               >
                 {item.name}
-                <span className={cn(
-                  "absolute -bottom-1 left-0 w-full h-0.5 bg-accent transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100",
-                  isActive(item.path) && "scale-x-100"
-                )}></span>
+                {!isActive(item.path) && (
+                  <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary rounded-full transition-all duration-300 group-hover/nav:w-2"></span>
+                )}
               </Link>
             ))}
-          </div>
+          </nav>
 
           {/* CTA Button */}
-          <div className="hidden md:block">
-            <Button asChild variant="premium" size="sm">
-              <Link to="/contact">Contact</Link>
+          <div className="hidden lg:block">
+            <Button asChild size="sm" className="rounded-xl font-semibold">
+              <Link to="/contact">Get in Touch</Link>
             </Button>
           </div>
-
-          {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden py-6 border-t border-border/50 bg-background/95 backdrop-blur-xl animate-fade-in">
-            <div className="flex flex-col space-y-3">
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.path}
-                  className={cn(
-                    "px-4 py-3 text-base font-medium rounded-lg transition-all duration-300",
-                    isActive(item.path)
-                      ? "bg-accent text-accent-foreground shadow-soft"
-                      : "text-muted-foreground hover:text-primary hover:bg-accent/10"
-                  )}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <div className="pt-4 px-4">
-                <Button asChild variant="premium" size="sm" className="w-full">
-                  <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
-                    Contact
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
+        </header>
       </div>
-    </nav>
+
+      {/* Mobile Bottom App Navigation */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-xl border-t border-border/60 pb-safe shadow-[0_-10px_40px_-10px_rgba(0,0,0,0.08)]">
+        <div className="flex items-center justify-between px-1 sm:px-2 py-2">
+          {navItems.map((item) => (
+            <Link
+              key={item.name}
+              to={item.path}
+              className={cn(
+                "flex flex-col items-center justify-center px-1 sm:px-2 py-1 flex-1 min-w-[3.5rem] rounded-xl transition-all duration-300",
+                isActive(item.path)
+                  ? "text-primary"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              <div className={cn(
+                "p-1.5 rounded-lg mb-1 transition-colors",
+                isActive(item.path) ? "bg-primary/10" : "bg-transparent"
+              )}>
+                <item.icon className={cn(
+                  "h-[18px] w-[18px]",
+                  isActive(item.path) ? "fill-primary/10" : ""
+                )} />
+              </div>
+              <span className="text-[9px] font-bold tracking-tight">
+                {item.name}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 

@@ -4,117 +4,60 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowUpRight, Github, Linkedin, Mail, Twitter } from "lucide-react";
 
 const Footer = () => {
-  const quickLinks = [
-    { name: "About", path: "/about" },
-    // { name: "Research", path: "/research" },
-    { name: "Case Studies", path: "/case-studies" },
-    { name: "Blog", path: "/blog" },
-  ];
-
-  const resources = [
-    { name: "Gallery", path: "/gallery" },
-    { name: "Contact", path: "/contact" },
-    // { name: "CV Download", path: "#" },
-  ];
-
   const socialLinks = [
-    { icon: Linkedin, href: "https://www.linkedin.com/in/asib-hasan/", label: "LinkedIn" },
     { icon: Github, href: "https://www.github.com/asib-hasan/", label: "GitHub" },
-    // { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Mail, href: "asib.uucse@gmail.com", label: "Email" },
+    { icon: Linkedin, href: "https://www.linkedin.com/in/asib-hasan/", label: "LinkedIn" },
+    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Mail, href: "mailto:asib.uucse@gmail.com", label: "Email" },
   ];
 
   return (
-    <footer className="bg-primary text-primary-foreground">
-      <div className="container mx-auto container-padding">
-        <div className="section-padding">
-          {/* Main Footer Content */}
-          <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-12 lg:gap-16">
-            {/* Brand Section */}
-            <div className="lg:col-span-2">
-              <Link to="/" className="inline-block mb-6">
-                <h3 className="text-2xl font-playfair font-bold bg-gradient-to-r from-accent-light to-white bg-clip-text text-transparent">
-                  Asib Hasan
-                </h3>
-              </Link>
-              <p className="text-primary-foreground/80 prose-lg mb-8 max-w-md text-balance">
-                 Analytical problem solver and developer turning real-world challenges into robust digital solutions.
-              </p>
-              
-              {/* Social Links */}
-              <div className="flex items-center gap-4">
-                {socialLinks.map((social) => (
-                  <Button
-                    key={social.label}
-                    variant="ghost"
-                    size="icon"
-                    className="text-primary-foreground/70 hover:text-accent-light hover:bg-white/10"
-                    asChild
-                  >
-                    <a href={social.href} aria-label={social.label}>
-                      <social.icon className="h-5 w-5" />
-                    </a>
-                  </Button>
-                ))}
-              </div>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <h4 className="font-playfair font-semibold text-lg mb-6 text-accent-light">
-                Quick Links
-              </h4>
-              <ul className="space-y-3">
-                {quickLinks.map((link) => (
-                  <li key={link.name}>
-                    <Button
-                      variant="ghost"
-                      className="p-0 h-auto text-primary-foreground/70 hover:text-accent-light hover:bg-transparent group"
-                      asChild
-                    >
-                      <Link to={link.path} className="flex items-center gap-2">
-                        {link.name}
-                        <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      </Link>
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Resources */}
-            <div>
-              <h4 className="font-playfair font-semibold text-lg mb-6 text-accent-light">
-                Resources
-              </h4>
-              <ul className="space-y-3">
-                {resources.map((link) => (
-                  <li key={link.name}>
-                    <Button
-                      variant="ghost"
-                      className="p-0 h-auto text-primary-foreground/70 hover:text-accent-light hover:bg-transparent group"
-                      asChild
-                    >
-                      <Link to={link.path} className="flex items-center gap-2">
-                        {link.name}
-                        <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      </Link>
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <Separator className="my-12 bg-white/20" />
-
-          {/* Bottom Footer */}
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="text-sm text-primary-foreground/60">
-              © {new Date().getFullYear()} Asib Hasan. All rights reserved.
-            </div>
+    <footer className="bg-background py-16 relative overflow-hidden">
+      {/* Decorative top border */}
+      <div className="absolute top-0 left-0 right-0 section-divider"></div>
+      
+      <div className="container mx-auto px-4 flex flex-col items-center text-center relative z-10">
+        
+        {/* Minimal Logo with glow */}
+        <div className="relative mb-6">
+          <div className="absolute inset-0 rounded-xl bg-blue-500 blur-xl opacity-10 scale-125"></div>
+          <div className="relative w-10 h-10 bg-gradient-to-br from-blue-500 to-violet-500 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
+            A
           </div>
         </div>
+
+        {/* Name & Title */}
+        <h3 className="text-xl font-bold text-foreground mb-3 font-sans">
+          Asib Hasan
+        </h3>
+        <p className="text-muted-foreground text-sm max-w-md mx-auto mb-8 leading-relaxed">
+          Software Engineer specializing in scalable web applications and modern user experiences.
+        </p>
+
+        {/* Social Links */}
+        <div className="flex items-center gap-4 mb-12">
+          {socialLinks.map((social) => (
+            <a
+              key={social.label}
+              href={social.href}
+              aria-label={social.label}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-xl border border-border/60 flex items-center justify-center text-muted-foreground hover:text-foreground hover:border-foreground/20 hover:-translate-y-1 transition-all duration-300"
+            >
+              <social.icon className="h-4 w-4" strokeWidth={1.5} />
+            </a>
+          ))}
+        </div>
+
+        {/* Separator */}
+        <div className="w-full max-w-3xl section-divider mb-8"></div>
+
+        {/* Copyright */}
+        <div className="text-xs font-medium text-muted-foreground/60 uppercase tracking-widest">
+          © {new Date().getFullYear()} Asib Hasan. All rights reserved.
+        </div>
+        
       </div>
     </footer>
   );
